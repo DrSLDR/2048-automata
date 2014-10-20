@@ -1,0 +1,11 @@
+{
+    "name": "2048",
+    "description": "An attempt to make 2048 play itself.",
+    "version": "0.0",
+    "manifest_version": 2,
+    "app": {
+        "background": {
+            "scripts": ["js/background.js"]
+        }
+    }
+}
