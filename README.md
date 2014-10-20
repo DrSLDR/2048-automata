@@ -1,5 +1,5 @@
 # 2048
-A fork of [gabrielcirulli's 2048](https://github.com/gabrielecirulli/2048),
+A fork of [gabrielecirulli's 2048](https://github.com/gabrielecirulli/2048),
   aiming to implement it as a Chrome App and implement an auto-player system in
   order to test optimal solution strategies.
 
