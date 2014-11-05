@@ -200,6 +200,21 @@ GameManager.prototype.getVector = function (direction) {
     3: { x: -1, y: 0 }   // Left
   };
 
+    switch(direction){
+        case 0:
+        console.debug("Traverse up");
+        break;
+        case 1:
+        console.debug("Traverse right");
+        break;
+        case 2:
+        console.debug("Traverse down");
+        break;
+        case 3:
+        console.debug("Traverse left");
+        break;
+    }
+
   return map[direction];
 };
 
