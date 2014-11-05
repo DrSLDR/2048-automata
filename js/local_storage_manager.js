@@ -18,17 +18,35 @@ window.fakeStorage = {
   }
 };
 
+chrome.localStorageAPI = {
+    setItem: function(id, val) {
+        return chrome.storage.local.set({'id':String(val)});
+    },
+
+    getItem: function (id) {
+        return chrome.storage.local.get(id);
+    },
+
+    removeItem: function(id) {
+        return chrome.storage.local.remove(id);
+    },
+
+    clear: function () {
+        return chrome.storage.local.clear();
+    }
+};
+
 function LocalStorageManager() {
   this.bestScoreKey     = "bestScore";
   this.gameStateKey     = "gameState";
 
   var supported = this.localStorageSupported();
-  this.storage = supported ? window.localStorage : window.fakeStorage;
+  this.storage = supported ? chrome.localStorageAPI : window.fakeStorage;
 }
 
 LocalStorageManager.prototype.localStorageSupported = function () {
   var testKey = "test";
-  var storage = window.localStorage;
+  var storage = chrome.localStorageAPI;
 
   try {
     storage.setItem(testKey, "1");
