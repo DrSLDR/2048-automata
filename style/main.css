@@ -513,6 +513,10 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px; }
+  
+  .title-container{
+      float:left;
+  }
 
   .container {
     width: 280px;
