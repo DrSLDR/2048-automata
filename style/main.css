@@ -481,6 +481,10 @@ hr {
   display: block;
   clear: both; }
 
+.automata-select{
+    width:150px;
+}
+
 .game-intro {
   float: left;
   line-height: 42px;
@@ -516,6 +520,8 @@ hr {
   
   .title-container{
       float:left;
+      margin-top:-20px;
+      margin-bottom:-20px;
   }
 
   .container {
@@ -713,3 +719,5 @@ hr {
     margin-top: 90px !important; }
   .game-message .lower {
     margin-top: 30px !important; } }
+
+
