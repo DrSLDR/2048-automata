@@ -12,28 +12,14 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
     this.inputManager.on("automataSwitch",this.toggleAutomata.bind(this));
 
-    this.automataEnabled = false;
+    this.automata = new Automata(this);
 
   this.setup();
 }
 
-//Toggles the Automata
+// Toggles the Automata
 GameManager.prototype.toggleAutomata = function () {
-    this.automataEnabled = !this.automataEnabled;
-    if(this.automataEnabled){
-        console.debug("Automata toggled on");
-        console.debug("Automata in use: " + 
-                      document.getElementsByClassName("automata-select")[0].
-                      value);
-        setColor = "#FF0000";
-    }else{
-        console.debug("Automata toggled off");
-        setColor = "#776E65";
-    }
-    elems = document.getElementsByClassName("title");
-    for (i = 0; i < elems.length; i++) {
-        elems[i].style.color = setColor;
-    }
+    this.automata.toggle();
 }
 
 // Restart the game
@@ -222,21 +208,6 @@ GameManager.prototype.getVector = function (direction) {
     2: { x: 0,  y: 1 },  // Down
     3: { x: -1, y: 0 }   // Left
   };
-
-    switch(direction){
-        case 0:
-        console.debug("Traverse up");
-        break;
-        case 1:
-        console.debug("Traverse right");
-        break;
-        case 2:
-        console.debug("Traverse down");
-        break;
-        case 3:
-        console.debug("Traverse left");
-        break;
-    }
 
   return map[direction];
 };
