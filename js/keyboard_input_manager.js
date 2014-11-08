@@ -63,6 +63,7 @@ KeyboardInputManager.prototype.listen = function () {
     // Space starts automata
     if (!modifiers && event.which === 32){
         // Trigger automata. Somehow
+        self.emit("automataSwitch");
     }
 });
 

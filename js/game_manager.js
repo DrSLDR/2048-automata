@@ -10,7 +10,27 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
+    this.inputManager.on("automataSwitch",this.toggleAutomata.bind(this));
+
+    this.automataEnabled = false;
+
   this.setup();
+}
+
+//Toggles the Automata
+GameManager.prototype.toggleAutomata = function () {
+    this.automataEnabled = !this.automataEnabled;
+    if(this.automataEnabled){
+        console.debug("Automata toggled on");
+        setColor = "#FF0000";
+    }else{
+        console.debug("Automata toggled off");
+        setColor = "#776E65";
+    }
+    elems = document.getElementsByClassName("title");
+    for (i = 0; i < elems.length; i++) {
+        elems[i].style.color = setColor;
+    }
 }
 
 // Restart the game
