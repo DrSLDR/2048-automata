@@ -22,6 +22,9 @@ GameManager.prototype.toggleAutomata = function () {
     this.automataEnabled = !this.automataEnabled;
     if(this.automataEnabled){
         console.debug("Automata toggled on");
+        console.debug("Automata in use: " + 
+                      document.getElementsByClassName("automata-select")[0].
+                      value);
         setColor = "#FF0000";
     }else{
         console.debug("Automata toggled off");
