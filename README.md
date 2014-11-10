@@ -6,7 +6,7 @@ A fork of [gabrielecirulli's 2048](https://github.com/gabrielecirulli/2048),
 So far, the Chrome app implementation works as intended. Automation code is in
   progress.
 
-So far, the following Automata are implemented:
+The following Automata are implemented:
 * **Random Direction** 
   Randomly moves the tiles around until it hits game over or the 2048 tile. 
   Implemented as a proof-of-concept only.
