@@ -10,6 +10,9 @@ The following Automata are implemented:
 * **Random Direction** 
   Randomly moves the tiles around until it hits game over or the 2048 tile. 
   Implemented as a proof-of-concept only.
+* **Random Available Direction** Evaluates which directions allow movement into
+  empty spaces, but does not evaluate possibility of merges. If there are no
+  more empty spaces, all directions are allowed temporarily.
 
 More advanced Automata will be implemented later. 
 

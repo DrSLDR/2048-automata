@@ -1,5 +1,5 @@
 {
-    "name": "2048",
+    "name": "2048 Automata",
     "description": "An attempt to make 2048 play itself.",
     "version": "0.0",
     "manifest_version": 2,

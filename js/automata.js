@@ -29,7 +29,10 @@ Automata.prototype.toggle = function () {
 Automata.prototype.init = function (name) {
     switch(name){
         case "random":
-        this.randomAutomata();
+        this.randomA();
+        break;
+        case "randomAvail":
+        this.randomAvailA();
         break;
     }
 }
@@ -50,6 +53,7 @@ Automata.prototype.sendMove = function (direction) {
         console.debug("Move left");
         break;
     }
+    // 0: up, 1: right, 2: down, 3: left
     this.gm.move(direction);
 }
 
@@ -63,16 +67,92 @@ Automata.prototype.setTimeoutWO = function (vCallback, nDelay) {
     }
 };
 
+// Returns the matrix representation of the grid
+Automata.prototype.getGrid = function () {
+    this.grid = this.gm.grid.cells;
+}
+
+// Analysis function - tests if movement up possible
+Automata.prototype.canMoveUp = function () {
+    for(x = 0; x < 4; x++){
+        hasGap = false;
+        for(y = 0; y < 4;  y++){
+            if(this.grid[x][y] && hasGap){
+                return true;
+            }else if(!this.grid[x][y]){
+                hasGap = true;
+            }}}
+    return false;
+}
+
+// Analysis function - tests if movement right possible
+Automata.prototype.canMoveRight = function () {
+    for(y = 0; y < 4; y++){
+        hasGap = false;
+        for(x = 3; x >= 0; x--){
+            if(this.grid[x][y] && hasGap){
+                return true;
+            }else if(!this.grid[x][y]){
+                hasGap = true;
+            }}}
+    return false;
+}
+
+// Analysis function - tests if movement down possible
+Automata.prototype.canMoveDown = function () {
+    for(x = 0; x < 4; x++){
+        hasGap = false;
+        for(y = 3; y >= 0;  y--){
+            if(this.grid[x][y] && hasGap){
+                return true;
+            }else if(!this.grid[x][y]){
+                hasGap = true;
+            }}}
+    return false;
+}
+
+// Analysis function - tests if movement left possible
+Automata.prototype.canMoveLeft = function () {
+    for(y = 0; y < 4; y++){
+        hasGap = false;
+        for(x = 0; x < 4; x++){
+            if(this.grid[x][y] && hasGap){
+                return true;
+            }else if(!this.grid[x][y]){
+                hasGap = true;
+            }}}
+    return false;
+}
+
+// Tests if an automata is clear to go ahead and move
 Automata.prototype.goAhead = function () {
     return (!this.gm.over && !this.gm.won);
 }
 
 // Random Direction Automata - debug only, really
-Automata.prototype.randomAutomata = function () {
+Automata.prototype.randomA = function () {
     if(this.goAhead()){
         dir = Math.floor(Math.random() * 4);
         this.sendMove(dir);
-        this.setTimeoutWO(this.randomAutomata,this.delay);
+        this.setTimeoutWO(this.randomA,this.delay);
+    }else{
+        this.toggle();
+    }
+}
+
+// Random Available Direction Automata - introduces grid processing
+Automata.prototype.randomAvailA = function () {
+    if(this.goAhead()){
+        this.getGrid();
+        allowedMoves = [];
+        if(this.canMoveUp()){allowedMoves.push(0);}
+        if(this.canMoveRight()){allowedMoves.push(1);}
+        if(this.canMoveDown()){allowedMoves.push(2);}
+        if(this.canMoveLeft()){allowedMoves.push(3);}
+        if(allowedMoves.length == 0) { allowedMoves = [1,2,3,0]; }
+        dir = Math.floor(Math.random() * allowedMoves.length);
+        this.sendMove(allowedMoves[dir]);
+        this.setTimeoutWO(this.randomAvailA,this.delay);
     }else{
         this.toggle();
     }
