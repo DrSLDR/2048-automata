@@ -13,6 +13,10 @@ The following Automata are implemented:
 * **Random Available Direction** Evaluates which directions allow movement into
   empty spaces, but does not evaluate possibility of merges. If there are no
   more empty spaces, all directions are allowed temporarily.
+* **Random Available Direction With Merge** Same algorithm as Random Available
+  Direction, except now also calculates for the possibility of merges. This
+  means it will (probably; not exhaustively tested) not attempt to move in a
+  direction it cannot.
 
 More advanced Automata will be implemented later. 
 

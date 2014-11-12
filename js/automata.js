@@ -34,6 +34,9 @@ Automata.prototype.init = function (name) {
         case "randomAvail":
         this.randomAvailA();
         break;
+        case "randomAvailMerge":
+        this.randomAvailMergeA();
+        break;
     }
 }
 
@@ -124,6 +127,38 @@ Automata.prototype.canMoveLeft = function () {
     return false;
 }
 
+// Analysis function - returns value of all possible horizontal merges
+Automata.prototype.canMergeH = function () {
+    sum = 0;
+    for(y = 0; y < 4; y++){
+        row = 0;
+        for(x = 0; x < 4; x++){
+            if(this.grid[x][y]){
+                if(row == this.grid[x][y].value){
+                    sum += row * 2;
+                    row = 0;
+                }else{
+                    row = this.grid[x][y].value;
+                }}}}
+    return sum;        
+}
+
+// Analysis function - returns value of all possible vertical merges
+Automata.prototype.canMergeV = function () {
+    sum = 0;
+    for(x = 0; x < 4; x++){
+        col = 0;
+        for(y = 0; y < 4; y++){
+            if(this.grid[x][y]){
+                if(col == this.grid[x][y].value){
+                    sum += col * 2;
+                    col = 0;
+                }else{
+                    col = this.grid[x][y].value;
+                }}}}
+    return sum;        
+}
+
 // Tests if an automata is clear to go ahead and move
 Automata.prototype.goAhead = function () {
     return (!this.gm.over && !this.gm.won);
@@ -153,6 +188,25 @@ Automata.prototype.randomAvailA = function () {
         dir = Math.floor(Math.random() * allowedMoves.length);
         this.sendMove(allowedMoves[dir]);
         this.setTimeoutWO(this.randomAvailA,this.delay);
+    }else{
+        this.toggle();
+    }
+}
+
+// Random Available Direction With Merge Automata
+Automata.prototype.randomAvailMergeA = function () {
+    if(this.goAhead()){
+        this.getGrid();
+        allowedMoves = [];
+        mergeH = this.canMergeH();
+        mergeV = this.canMergeV();
+        if(mergeV > 0 || this.canMoveUp()){ allowedMoves.push(0); }
+        if(mergeH > 0 || this.canMoveRight()){ allowedMoves.push(1); }
+        if(mergeV > 0 || this.canMoveDown()){ allowedMoves.push(2); }
+        if(mergeH > 0 || this.canMoveLeft()){ allowedMoves.push(3); }
+        dir = Math.floor(Math.random() * allowedMoves.length);
+        this.sendMove(allowedMoves[dir]);
+        this.setTimeoutWO(this.randomAvailMergeA,this.delay);        
     }else{
         this.toggle();
     }
