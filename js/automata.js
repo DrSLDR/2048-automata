@@ -37,6 +37,12 @@ Automata.prototype.init = function (name) {
         case "randomAvailMerge":
         this.randomAvailMergeA();
         break;
+        case "randomMergePrio":
+        this.randomMergePrioA();
+        break;
+        case "greedy":
+        this.greedyA();
+        break;
     }
 }
 
@@ -207,6 +213,61 @@ Automata.prototype.randomAvailMergeA = function () {
         dir = Math.floor(Math.random() * allowedMoves.length);
         this.sendMove(allowedMoves[dir]);
         this.setTimeoutWO(this.randomAvailMergeA,this.delay);        
+    }else{
+        this.toggle();
+    }
+}
+
+// Random Available Merge Priority Automata
+Automata.prototype.randomMergePrioA = function () {
+    if(this.goAhead()){
+        this.getGrid();
+        allowedMoves = [];
+        mergeH = this.canMergeH();
+        mergeV = this.canMergeV();
+        if(mergeH > 0 || mergeV > 0){
+            if(mergeH > 0){
+                allowedMoves.push(1,3);
+            }
+            if(mergeV > 0){
+                allowedMoves.push(0,2);
+            }
+        }else{
+            if(this.canMoveUp()){allowedMoves.push(0);}
+            if(this.canMoveRight()){allowedMoves.push(1);}
+            if(this.canMoveDown()){allowedMoves.push(2);}
+            if(this.canMoveLeft()){allowedMoves.push(3);}
+        }
+        dir = Math.floor(Math.random() * allowedMoves.length);
+        this.sendMove(allowedMoves[dir]);
+        this.setTimeoutWO(this.randomMergePrioA,this.delay);        
+    }else{
+        this.toggle();
+    }
+}
+
+// Greedy Merge Automata
+Automata.prototype.greedyA = function () {
+    if(this.goAhead()){
+        this.getGrid();
+        allowedMoves = [];
+        mergeH = this.canMergeH();
+        mergeV = this.canMergeV();
+        if(mergeH > mergeV) {
+            allowedMoves.push(1,3);
+        }else if(mergeV > mergeH) {
+            allowedMoves.push(0,2);
+        }else if(mergeV > 0 && mergeH > 0){
+            allowedMoves.push(0,1,2,3);
+        }else{
+            if(this.canMoveUp()){allowedMoves.push(0);}
+            if(this.canMoveRight()){allowedMoves.push(1);}
+            if(this.canMoveDown()){allowedMoves.push(2);}
+            if(this.canMoveLeft()){allowedMoves.push(3);}
+        }
+        dir = Math.floor(Math.random() * allowedMoves.length);
+        this.sendMove(allowedMoves[dir]);
+        this.setTimeoutWO(this.greedyA,this.delay);        
     }else{
         this.toggle();
     }

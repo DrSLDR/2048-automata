@@ -17,6 +17,11 @@ The following Automata are implemented:
   Direction, except now also calculates for the possibility of merges. This
   means it will (probably; not exhaustively tested) not attempt to move in a
   direction it cannot.
+* **Random Available Merge Priority** Prioritizes merges. Will only allow
+  movement into empty space when there are no merges possible.
+* **Greedy Merge** Evaluates horizontal and vertical merges to see which gains
+  the highest score. If no merges are available, the Random Available Direction
+  algorithm is used.
 
 More advanced Automata will be implemented later. 
 
