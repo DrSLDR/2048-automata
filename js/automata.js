@@ -56,6 +56,9 @@ Automata.prototype.init = function (name) {
         case "greedy":
         this.greedyA();
         break;
+        case "greedyDLR":
+        this.greedyDLRA();
+        break;
     }
 }
 
@@ -281,6 +284,28 @@ Automata.prototype.greedyA = function () {
         dir = Math.floor(Math.random() * allowedMoves.length);
         this.sendMove(allowedMoves[dir]);
         this.setTimeoutWO(this.greedyA,this.delay);        
+    }else{
+        this.toggle();
+    }
+}
+
+// Greedy DLR Merge Automata
+Automata.prototype.greedyDLRA = function () {
+    if(this.goAhead()){
+        this.getGrid();
+        mergeH = this.canMergeH();
+        mergeV = this.canMergeV();
+        if(mergeV >= mergeH && mergeV != 0) {
+            this.sendMove(2);
+        }else if(mergeH > mergeV) {
+            this.sendMove(3);
+        }else{
+            if(this.canMoveDown()){this.sendMove(2);}
+            else if(this.canMoveLeft()){this.sendMove(3);}
+            else if(this.canMoveRight()){this.sendMove(1);}
+            else {this.sendMove(0);}
+        }
+        this.setTimeoutWO(this.greedyDLRA,this.delay);        
     }else{
         this.toggle();
     }

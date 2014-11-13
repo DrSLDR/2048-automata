@@ -22,6 +22,9 @@ The following Automata are implemented:
 * **Greedy Merge** Evaluates horizontal and vertical merges to see which gains
   the highest score. If no merges are available, the Random Available Direction
   algorithm is used.
+* **Greedy DLR Merge** Uses the Greedy Merge algorithm but prioritizes the
+  directions down, left, and right (in that order). If and only if no merges and
+  no other movements are possible will it move up.
 
 More advanced Automata will be implemented later. 
 
