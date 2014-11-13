@@ -62,8 +62,16 @@ KeyboardInputManager.prototype.listen = function () {
 
     // Space starts automata
     if (!modifiers && event.which === 32){
-        // Trigger automata. Somehow
+        // Trigger automata
         self.emit("automataSwitch");
+    }
+
+    // Z/X change Automata speed
+    if(!modifiers && event.which === 90){
+        self.emit("automataSpeedUp");
+    }
+    if(!modifiers && event.which === 88){
+        self.emit("automataSpeedDown");
     }
 });
 

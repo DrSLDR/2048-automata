@@ -25,6 +25,19 @@ Automata.prototype.toggle = function () {
     }
 }
 
+// Changes automata speed
+Automata.prototype.speedUp = function () {
+    if(this.delay > 100){
+        this.delay -= 100;
+    }
+    console.debug("Delay is now " + this.delay + "ms");
+}
+
+Automata.prototype.speedDown = function () {
+    this.delay += 100;
+    console.debug("Delay is now " + this.delay + "ms");
+}
+
 // Initiates a specific Automata
 Automata.prototype.init = function (name) {
     switch(name){

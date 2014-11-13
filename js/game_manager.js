@@ -11,6 +11,8 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
     this.inputManager.on("automataSwitch",this.toggleAutomata.bind(this));
+    this.inputManager.on("automataSpeedUp",this.automataSpeedUp.bind(this));
+    this.inputManager.on("automataSpeedDown",this.automataSpeedDown.bind(this));
 
     this.automata = new Automata(this);
 
@@ -20,6 +22,15 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 // Toggles the Automata
 GameManager.prototype.toggleAutomata = function () {
     this.automata.toggle();
+}
+
+// Changes Automata speed up
+GameManager.prototype.automataSpeedUp = function () {
+    this.automata.speedUp();
+}
+
+GameManager.prototype.automataSpeedDown = function () {
+    this.automata.speedDown();
 }
 
 // Restart the game
