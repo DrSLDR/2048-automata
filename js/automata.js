@@ -2,7 +2,7 @@ function Automata(GameManager) {
     this.gm = GameManager;
 
     this.active = false;
-    this.delay = 500;
+    this.delay = 1000;
 }
 
 // Toggles the Automata
@@ -41,22 +41,22 @@ Automata.prototype.speedDown = function () {
 // Initiates a specific Automata
 Automata.prototype.init = function (name) {
     switch(name){
-        case "random":
+    case "random":
         this.randomA();
         break;
-        case "randomAvail":
+    case "randomAvail":
         this.randomAvailA();
         break;
-        case "randomAvailMerge":
+    case "randomAvailMerge":
         this.randomAvailMergeA();
         break;
-        case "randomMergePrio":
+    case "randomMergePrio":
         this.randomMergePrioA();
         break;
-        case "greedy":
+    case "greedy":
         this.greedyA();
         break;
-        case "greedyDLR":
+    case "greedyDLR":
         this.greedyDLRA();
         break;
     }
@@ -64,22 +64,24 @@ Automata.prototype.init = function (name) {
 
 // Sends a move command to the GameManager
 Automata.prototype.sendMove = function (direction) {
-    switch(direction){
+    if(this.active){
+        switch(direction){
         case 0:
-        console.debug("Move up");
-        break;
+            console.debug("Move up");
+            break;
         case 1:
-        console.debug("Move right");
-        break;
+            console.debug("Move right");
+            break;
         case 2:
-        console.debug("Move down");
-        break;
+            console.debug("Move down");
+            break;
         case 3:
-        console.debug("Move left");
-        break;
+            console.debug("Move left");
+            break;
+        }
+        // 0: up, 1: right, 2: down, 3: left
+        this.gm.move(direction);
     }
-    // 0: up, 1: right, 2: down, 3: left
-    this.gm.move(direction);
 }
 
 // this-binding workaround (courtesy of MDN)
